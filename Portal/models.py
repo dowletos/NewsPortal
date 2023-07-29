@@ -15,7 +15,8 @@ class Author(models.Model):
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
     author_rank = models.IntegerField(default=0)
 
-
+    def __str__(self):
+        return self.user
 
     class Meta:
         verbose_name = 'Справочник Авторов'
@@ -83,6 +84,9 @@ class Post(models.Model):
     post_content = models.CharField(max_length=250, unique=True, verbose_name='Текст')
     post_rank=models.IntegerField(default=0, verbose_name='Рейтинг ')
 
+    def __str__(self):
+        return f'{self.post_ID}'
+
     def like(self):
         self.post_rank += 1
         self.save()
@@ -96,9 +100,10 @@ class Post(models.Model):
         return self.post_content[:124]+'...'
 
     class Meta:
+        verbose_name = 'Статья'
+        verbose_name_plural = 'Статьи'
 
-        verbose_name = 'Статья/Новость'
-        verbose_name_plural = 'Статьи/Новости'
+
 
 
 
@@ -118,6 +123,8 @@ class Comments(models.Model):
     comment_created = models.DateTimeField(auto_now_add=True, verbose_name='дата и время создания')
     comment_rank=models.IntegerField(default=0, verbose_name='Рейтинг')
 
+    def __str__(self):
+        return f'{self.commend_ID}'
     def like(self):
                 self.comment_rank += 1
                 self.save()
@@ -134,7 +141,7 @@ class Comments(models.Model):
 
     class Meta:
 
-        verbose_name = 'Статья/Новость'
-        verbose_name_plural = 'Статьи/Новости'
+        verbose_name = 'Комментарии'
+        verbose_name_plural = 'Комментарии'
 
 

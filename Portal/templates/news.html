@@ -1,0 +1,43 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% load custom_tags %}
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+   <h1>Всего новостий: {{ Post|length }}</h1>
+   <hr>
+   {% if Post %}
+       <table style="border:1px dashed">
+           <tr>
+
+               <td style="border:1px dashed">Заголовок</td>
+               <td style="border:1px dashed">Дата публикации</td>
+               <td style="border:1px dashed">Текст(20 символов)</td>
+
+           </tr>
+
+
+           <br>
+           <!-- Для каждого товара будете генерироваться новая строчка,
+           т.е. новый HTML код, который указан в теле цикла.
+           При этом сам цикл работает точно так же, как и в Python.
+           product — переменная цикла, т.е. наш товар полученный из списка -->
+           {% for post in Post %}
+           <tr>
+
+                <td style="border:1px dashed">{{ post.post_title|censor}}</td>
+                <td style="border:1px dashed">{{ post.date_and_time_created|date:'d M Y' }}</td>
+                <td style="border:1px dashed">{{ post.post_content|censor|truncatewords:20 }}</td>
+
+
+
+           </tr>
+           {% endfor %}
+
+       </table>
+   {% else %}
+       <h2>Новостей нет!</h2>
+   {% endif %}
+{% endblock content %}
